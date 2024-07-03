@@ -1,0 +1,9 @@
+
+### 3. Usage in Colab or Other Projects
+MIT License
+
+To use your package in Colab or other projects:
+
+- Clone your Git repository:
+  ```bash
+  !git clone <repository_url>
