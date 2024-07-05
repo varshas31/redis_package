@@ -13,5 +13,5 @@ def connect(config=None):
     Returns:
         redis.Redis: Redis client instance.
     """
-    config = config or redis_config
+    config = redis_config
     return redis.Redis(**config)
