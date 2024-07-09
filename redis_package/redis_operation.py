@@ -12,7 +12,7 @@ class RedisClient:
 
     def push(self, key: str, value: str) -> int:
         """Pushes a value to a list in Redis."""
-        return self.db.lpush(key, value)
+        return self.db.rpush(key, value)
 
     def pop_left(self, key: str) -> Optional[bytes]:
         """Pops a value from the head of a list in Redis."""
