@@ -19,7 +19,7 @@ class Queue:
 
     def read(self):
         try:
-            return self.client.pop_right(self.name)
+            return self.client.pop_left(self.name)
         except Exception as e:
             # print(f"Error reading from queue '{self.name}': {str(e)}")
             return e
@@ -39,7 +39,7 @@ class Stack:
 
     def read(self):
         try:
-            return self.client.pop_left(self.name)
+            return self.client.pop_right(self.name)
         except Exception as e:
             # print(f"Error reading from stack '{self.name}': {str(e)}")
             return e
