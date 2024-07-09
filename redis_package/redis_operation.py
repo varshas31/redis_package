@@ -12,14 +12,12 @@ class RedisClient:
 
     def push(self, key: str, value: str) -> int:
         """Pushes a value to a list in Redis."""
-        if not self.is_list(key):
-            self.db.delete(key)  # Remove key if it's not a list
-        return self.db.lpush(key, value)
+        return self.db.rpush(key, value)
 
-    def pop(self, key: str) -> Optional[bytes]:
+    def pop_left(self, key: str) -> Optional[bytes]:
         """Pops a value from the head of a list in Redis."""
         return self.db.lpop(key)
 
-    def is_list(self, key: str) -> bool:
-        """Checks if a key exists and is a list."""
-        return self.db.exists(key) and self.db.type(key) == b'list'
+    def pop_right(self, key: str) -> Optional[bytes]:
+        """Pops a value from the tail of a list in Redis (FIFO for Queue)."""
+        return self.db.rpop(key)

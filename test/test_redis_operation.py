@@ -35,43 +35,5 @@ def test_pop(redis_client):
     else:
         print("Queue is empty")
 
-def test_get_all(redis_client):
-    key = input("Enter the key to get all items from: ")
-    result = redis_client.get_all(key)
-    if result:
-        items = [item.decode('utf-8') for item in result]
-        print(f"All items in {key}: {items}")
-    else:
-        print("Queue is empty")
-
-def test_remove(redis_client):
-    key = input("Enter the key to remove from: ")
-    value = input("Enter the value to remove: ")
-    result = redis_client.remove(key, value)
-    print(f"Removed {result} instances of {value} from {key}")
-
-def test_update(redis_client):
-    key = input("Enter the key to update: ")
-    index = int(input("Enter the index to update: "))
-    value = input("Enter the new value: ")
-    success = redis_client.update(key, index, value)
-    if success:
-        print(f"Updated item at index {index} in {key} to {value}")
-    else:
-        print(f"Failed to update item at index {index} in {key}")
-
-def test_len(redis_client):
-    key = input("Enter the key to get length: ")
-    result = redis_client.len(key)
-    print(f"Length of {key}: {result}")
-
-def test_is_list(redis_client):
-    key = input("Enter the key to check if it's a list: ")
-    if redis_client.is_list(key):
-        print(f"{key} is a list")
-    else:
-        print(f"{key} is not a list")
-
-
 if __name__ == "__main__":
     pytest.main()

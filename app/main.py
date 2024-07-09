@@ -12,17 +12,37 @@ class Queue:
     def write(self, item):
         try:
             self.client.push(self.name, item)
-            return True
+            return
         except Exception as e:
-            print(f"Error writing to queue '{self.name}': {str(e)}")
-            return False
+            # print(f"Error writing to queue '{self.name}': {str(e)}")
+            return e
 
     def read(self):
         try:
-            return self.client.pop(self.name)
+            return self.client.pop_right(self.name)
         except Exception as e:
-            print(f"Error reading from queue '{self.name}': {str(e)}")
-            return None
+            # print(f"Error reading from queue '{self.name}': {str(e)}")
+            return e
+
+class Stack:
+    def __init__(self, client, name):
+        self.client = client
+        self.name = name
+
+    def write(self, item):
+        try:
+            self.client.push(self.name, item)
+            return
+        except Exception as e:
+            # print(f"Error writing to stack '{self.name}': {str(e)}")
+            return e
+
+    def read(self):
+        try:
+            return self.client.pop_left(self.name)
+        except Exception as e:
+            # print(f"Error reading from stack '{self.name}': {str(e)}")
+            return e
 
 # Example usage:
 if __name__ == "__main__":
@@ -35,4 +55,4 @@ if __name__ == "__main__":
 
     # Read from queue
     item_read = queue.read()
-    print(f"Read from queue '{queue_name}': {item_read.decode('utf-8') if item_read else None}")
+    # print(f"Read from queue '{queue_name}': {item_read.decode('utf-8') if item_read else None}")
