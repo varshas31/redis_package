@@ -34,6 +34,12 @@ class Stack:
         except Exception as e:
             return e
 
+    def read(self):
+        try:
+            return self.client.popl(self.name)
+        except Exception as e:
+            return e
+
 class Delete:
     def __init__(self, client):
         self.client = client
