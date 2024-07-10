@@ -11,17 +11,15 @@ class Queue:
 
     def write(self, item):
         try:
-            self.client.push(self.name, item)
+            self.client.pushr(self.name, item)
             return
         except Exception as e:
-            # print(f"Error writing to queue '{self.name}': {str(e)}")
             return e
 
     def read(self):
         try:
-            return self.client.pop_left(self.name)
+            return self.client.popl(self.name)
         except Exception as e:
-            # print(f"Error reading from queue '{self.name}': {str(e)}")
             return e
 
 class Stack:
@@ -31,28 +29,22 @@ class Stack:
 
     def write(self, item):
         try:
-            self.client.push(self.name, item)
+            self.client.pushl(self.name, item)
             return
         except Exception as e:
-            # print(f"Error writing to stack '{self.name}': {str(e)}")
             return e
 
-    def read(self):
+class Delete:
+    def __init__(self, client):
+        self.client = client
+
+    def delete(self, name):
         try:
-            return self.client.pop_right(self.name)
+            if self.client.delete(name):
+                return True
+            else:
+                return False
         except Exception as e:
-            # print(f"Error reading from stack '{self.name}': {str(e)}")
             return e
 
-# Example usage:
-if __name__ == "__main__":
-    queue_name = "my_queue"
-    queue = Queue(client, queue_name)
 
-    # Write to queue
-    item_to_write = "Hello, Redis!"
-    queue.write(item_to_write)
-
-    # Read from queue
-    item_read = queue.read()
-    # print(f"Read from queue '{queue_name}': {item_read.decode('utf-8') if item_read else None}")

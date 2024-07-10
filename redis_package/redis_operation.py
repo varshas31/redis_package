@@ -10,14 +10,14 @@ class RedisClient:
             password=config.get('password')
         )
 
-    def push(self, key: str, value: str) -> int:
-        """Pushes a value to a list in Redis."""
+    def pushr(self, key: str, value: str) -> int:
         return self.db.rpush(key, value)
 
-    def pop_left(self, key: str) -> Optional[bytes]:
-        """Pops a value from the head of a list in Redis."""
+    def pushl(self, key: str, value: str) -> int:
+        return self.db.lpush(key, value)
+
+    def popl(self, key: str) -> Optional[bytes]:
         return self.db.lpop(key)
 
-    def pop_right(self, key: str) -> Optional[bytes]:
-        """Pops a value from the tail of a list in Redis (FIFO for Queue)."""
-        return self.db.rpop(key)
+    def delete(self, key: str) -> bool:
+        return self.db.delete(key) == 1
