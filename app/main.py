@@ -1,5 +1,13 @@
-from redis_package.redis_operation import RedisClient
 from redis_package.config import redis_config
+import redis
+class RedisClient:
+    def __init__(self, config: dict):
+        self.db = redis.Redis(
+            host=config['host'],
+            port=config['port'],
+            db=config['db'],
+            password=config.get('password')
+        )
 
 # Initialize Redis client
 client = RedisClient(config=redis_config)
@@ -9,16 +17,15 @@ class Queue:
         self.client = client
         self.name = name
 
-    def write(self, item):
+    def write(self, value: str) -> int:
         try:
-            self.client.pushr(self.name, item)
-            return
+            return self.db.rpush(self.name, value)
         except Exception as e:
             return e
 
-    def read(self):
+    def read(self ) -> [bytes]:
         try:
-            return self.client.popl(self.name)
+            return self.db.lpop(self.name)
         except Exception as e:
             return e
 
@@ -27,29 +34,26 @@ class Stack:
         self.client = client
         self.name = name
 
-    def write(self, item):
+    def write(self, value: str) -> int:
         try:
-            self.client.pushl(self.name, item)
-            return
+            return self.db.lpush(self.name, value)
         except Exception as e:
             return e
 
-    def read(self):
+    def read(self ) -> [bytes]:
         try:
-            return self.client.popl(self.name)
+            return self.db.lpop(self.name)
         except Exception as e:
             return e
 
 class Delete:
-    def __init__(self, client):
+    def __init__(self, client, name):
         self.client = client
+        self.name = name
 
-    def delete(self, name):
+    def delete(self) -> bool:
         try:
-            if self.client.delete(name):
-                return True
-            else:
-                return False
+            return self.db.delete(self.name) == 1
         except Exception as e:
             return e
 
