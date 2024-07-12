@@ -1,4 +1,4 @@
-from app.main import client, Queue, Stack, Delete
+from redis.main import client, Queue, Stack, Delete
 import pytest
 
 def test_queue_operations():
