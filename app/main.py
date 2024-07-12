@@ -1,16 +1,16 @@
-import redis_package
+import redis
 from redis_package.config import redis_config
 
 class RedisClient:
     def __init__(self, config: dict):
-        self.db = redis_package.Redis(
+        self.db = redis.Redis(
             host=config['host'],
             port=config['port'],
             db=config['db'],
         )
 
 # Initialize Redis client
-client = RedisClient(redis_config)
+client = RedisClient(config=redis_config)
 
 class Queue:
     def __init__(self, client, name):
