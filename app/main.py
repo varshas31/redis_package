@@ -1,12 +1,12 @@
-from redis.config import redis_config
-import redis
+import redis_package
+from redis_package.config import redis_config
+
 class RedisClient:
     def __init__(self, config: dict):
-        self.db = redis.Redis(
+        self.db = redis_package.Redis(
             host=config['host'],
             port=config['port'],
             db=config['db'],
-            password=config.get('password')
         )
 
 # Initialize Redis client
@@ -23,7 +23,7 @@ class Queue:
         except Exception as e:
             return e
 
-    def read(self ) -> [bytes]:
+    def read(self) -> [bytes]:
         try:
             return self.client.db.lpop(self.name)
         except Exception as e:
@@ -34,7 +34,6 @@ class Queue:
             return self.client.db.delete(self.name) == 1
         except Exception as e:
             return e
-
 
 class Stack:
     def __init__(self, client, name):
@@ -47,7 +46,7 @@ class Stack:
         except Exception as e:
             return e
 
-    def read(self ) -> [bytes]:
+    def read(self) -> [bytes]:
         try:
             return self.client.db.lpop(self.name)
         except Exception as e:
@@ -58,7 +57,3 @@ class Stack:
             return self.client.db.delete(self.name) == 1
         except Exception as e:
             return e
-
-
-
-

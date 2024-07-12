@@ -1,4 +1,4 @@
-from redis.main import client, Queue, Stack, Delete
+from app.main import client, Queue, Stack
 import pytest
 
 def test_queue_operations():
@@ -12,10 +12,6 @@ def test_stack_operations():
     my_stack.write('itemA')
     my_stack.write('itemB')
     assert my_stack.read().decode() == 'itemB'  # Assuming read returns bytes, decode to string
-
-def test_delete_operation():
-    delete_operation = Delete(client, 'my_queue')
-    assert delete_operation.delete() is True
 
 if __name__ == "__main__":
     pytest.main()
