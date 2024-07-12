@@ -19,13 +19,13 @@ class Queue:
 
     def write(self, value: str) -> int:
         try:
-            return self.db.rpush(self.name, value)
+            return self.client.db.rpush(self.name, value)
         except Exception as e:
             return e
 
     def read(self ) -> [bytes]:
         try:
-            return self.db.lpop(self.name)
+            return self.client.db.lpop(self.name)
         except Exception as e:
             return e
 
@@ -36,13 +36,13 @@ class Stack:
 
     def write(self, value: str) -> int:
         try:
-            return self.db.lpush(self.name, value)
+            return self.client.db.lpush(self.name, value)
         except Exception as e:
             return e
 
     def read(self ) -> [bytes]:
         try:
-            return self.db.lpop(self.name)
+            return self.client.db.lpop(self.name)
         except Exception as e:
             return e
 
@@ -53,7 +53,7 @@ class Delete:
 
     def delete(self) -> bool:
         try:
-            return self.db.delete(self.name) == 1
+            return self.client.db.delete(self.name) == 1
         except Exception as e:
             return e
 
