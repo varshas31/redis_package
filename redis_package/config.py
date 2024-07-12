@@ -5,7 +5,7 @@ import os
 load_dotenv()
 
 redis_config = {
-    'host': os.getenv('REDIS_HOST', 'localhost'),
-    'port': int(os.getenv('REDIS_PORT', 6379)),
-    'db': int(os.getenv('REDIS_DB', 0))
+    'host': os.getenv('REDIS_HOST'),
+    'port': int(os.getenv('REDIS_PORT')),
+    'db': int(os.getenv('REDIS_DB'))
 }
