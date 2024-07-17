@@ -7,6 +7,7 @@ class RedisClient:
             host=config['host'],
             port=config['port'],
             db=config['db'],
+            password=config['password']
         )
 
 # Initialize Redis client
