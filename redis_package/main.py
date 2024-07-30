@@ -26,7 +26,7 @@ class Queue:
 
     def read(self) -> [bytes]:
         try:
-            return self.client.db.lpop(self.name)
+            return self.client.db.blpop(self.name)
         except Exception as e:
             return e
 
